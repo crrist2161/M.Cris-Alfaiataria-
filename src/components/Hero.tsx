@@ -23,11 +23,8 @@ export default function Hero() {
             <p className="text-white/70 max-w-sm text-sm font-light italic leading-relaxed mb-10">
               Alfaiataria impecável para a mulher contemporânea. Eleve sua presença profissional com nossa nova linha Signature Archive.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-white text-primary-deep px-10 py-5 uppercase text-[11px] tracking-[0.3em] font-black rounded-full hover:bg-accent-pink hover:text-white transition-all flex items-center justify-center gap-2 group shadow-xl">
-                Descobrir Coleção <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </div>
+            {/* Removed internal button as requested */}
+
           </motion.div>
         </div>
 

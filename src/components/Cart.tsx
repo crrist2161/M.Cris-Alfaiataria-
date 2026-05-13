@@ -7,9 +7,10 @@ interface CartProps {
   onClose: () => void;
   cartItems: { product: Product; quantity: number }[];
   onRemove: (id: string) => void;
+  onCheckout: () => void;
 }
 
-export default function Cart({ isOpen, onClose, cartItems, onRemove }: CartProps) {
+export default function Cart({ isOpen, onClose, cartItems, onRemove, onCheckout }: CartProps) {
   const total = cartItems.reduce((acc, item) => acc + (item.product.price * item.quantity), 0);
 
   return (
@@ -84,6 +85,7 @@ export default function Cart({ isOpen, onClose, cartItems, onRemove }: CartProps
               </div>
               <p className="text-[9px] text-white/40 mb-6">Taxas e frete calculados no checkout.</p>
               <button 
+                onClick={onCheckout}
                 disabled={cartItems.length === 0}
                 className="w-full bg-white text-primary-deep py-5 uppercase text-[11px] tracking-[0.3em] font-black rounded-full hover:bg-accent-pink hover:text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-2xl active:scale-[0.98]"
               >

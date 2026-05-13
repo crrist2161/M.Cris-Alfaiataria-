@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ProductCard from './components/ProductCard';
 import Cart from './components/Cart';
+import SuccessModal from './components/SuccessModal';
 import { products, Product } from './data/products';
 import { motion } from 'motion/react';
 import { Instagram, Facebook, Twitter, Mail, ArrowUp } from 'lucide-react';
@@ -10,6 +11,8 @@ import { Instagram, Facebook, Twitter, Mail, ArrowUp } from 'lucide-react';
 export default function App() {
   const [cartItems, setCartItems] = useState<{ product: Product; quantity: number }[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isSuccessOpen, setIsSuccessOpen] = useState(false);
+  const [activeCategory, setActiveCategory] = useState('all');
 
   const addToCart = (product: Product) => {
     setCartItems(prev => {
@@ -28,7 +31,22 @@ export default function App() {
     setCartItems(prev => prev.filter(item => item.product.id !== id));
   };
 
+  const handleCheckout = () => {
+    if (cartItems.length === 0) return;
+    
+    // Simulate checkout process
+    setCartItems([]);
+    setIsCartOpen(false);
+    setIsSuccessOpen(true);
+  };
+
   const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+
+  const filteredProducts = activeCategory === 'all' 
+    ? products 
+    : activeCategory === 'Alfaiataria'
+      ? products.filter(p => ['Blazers', 'Camisas', 'Calças'].includes(p.category))
+      : products.filter(p => p.category === activeCategory);
 
   return (
     <div className="flex flex-col min-h-screen relative">
@@ -37,31 +55,48 @@ export default function App() {
       <div className="fixed top-[-10%] right-[-5%] w-[500px] h-[500px] bg-accent-pink rounded-full blur-[120px] opacity-40 -z-10"></div>
       <div className="fixed bottom-[-10%] left-[-5%] w-[400px] h-[400px] bg-primary-bright rounded-full blur-[100px] opacity-30 -z-10"></div>
 
-      <Navbar cartCount={cartCount} onOpenCart={() => setIsCartOpen(true)} />
+      <Navbar 
+        cartCount={cartCount} 
+        onOpenCart={() => setIsCartOpen(true)} 
+        activeCategory={activeCategory}
+        onCategoryChange={(cat) => {
+          setActiveCategory(cat);
+          if (cat === 'all') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          } else {
+            const element = document.getElementById('products');
+            if (element) {
+              const yOffset = -100; // Offset for navbar
+              const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+              window.scrollTo({ top: y, behavior: 'smooth' });
+            }
+          }
+        }}
+      />
       
       <main className="flex-1 relative z-10">
         <Hero />
 
         {/* Section Title */}
-        <section className="py-24 max-w-7xl mx-auto px-6">
+        <section id="products" className="py-24 max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
-            <div className="glass p-8 rounded-3xl">
-              <span className="text-[10px] uppercase tracking-[0.5em] text-white/60 font-bold mb-4 block underline decoration-accent-pink underline-offset-8">Essentials</span>
+            <div className="glass p-8 rounded-3xl w-full">
+              <span className="text-[10px] uppercase tracking-[0.5em] text-white/60 font-bold mb-4 block underline decoration-accent-pink underline-offset-8">
+                {activeCategory === 'all' ? 'Essentials' : activeCategory}
+              </span>
               <h2 className="text-5xl md:text-7xl font-light text-white">
-                O Novo <span className="italic font-serif">Power Look</span>
+                {activeCategory === 'Acessórios' ? (
+                  <>O Toque <span className="italic font-serif">Final</span></>
+                ) : (
+                  <>O Novo <span className="italic font-serif">Power Look</span></>
+                )}
               </h2>
-            </div>
-            <div className="flex gap-8 text-[11px] uppercase tracking-widest font-bold glass-dark p-6 rounded-2xl overflow-x-auto no-scrollbar">
-              <button className="text-white border-b-2 border-white pb-1 whitespace-nowrap">Tudo</button>
-              <button className="text-white/40 hover:text-white transition-colors pb-1 whitespace-nowrap">Blazers</button>
-              <button className="text-white/40 hover:text-white transition-colors pb-1 whitespace-nowrap">Camisas</button>
-              <button className="text-white/40 hover:text-white transition-colors pb-1 whitespace-nowrap">Calças</button>
             </div>
           </div>
 
           {/* Product Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
-            {products.map((product) => (
+            {filteredProducts.map((product) => (
               <ProductCard 
                 key={product.id} 
                 product={product} 
@@ -159,6 +194,12 @@ export default function App() {
         onClose={() => setIsCartOpen(false)} 
         cartItems={cartItems} 
         onRemove={removeFromCart}
+        onCheckout={handleCheckout}
+      />
+
+      <SuccessModal 
+        isOpen={isSuccessOpen} 
+        onClose={() => setIsSuccessOpen(false)} 
       />
 
       <button 

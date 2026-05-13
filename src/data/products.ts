@@ -67,5 +67,59 @@ export const products: Product[] = [
     image: 'https://i.pinimg.com/originals/74/b4/fb/74b4fb7abe868d37d37998d7338b6f78.jpg?nii=t',
     colors: ['#000080', '#1C1C1C'],
     description: 'Peça versátil de alta durabilidade, combinando conforto e rigor estético.'
+  },
+  {
+    id: '7',
+    name: 'Bolsa Estruturada Bella',
+    category: 'Acessórios',
+    price: 890,
+    image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=800&auto=format&fit=crop',
+    colors: ['#000000', '#8B4513'],
+    description: 'Bolsa em couro legítimo com design arquitetônico, o toque final de poder para seu look.'
+  },
+  {
+    id: '8',
+    name: 'Brincos Geométricos Ouro',
+    category: 'Acessórios',
+    price: 320,
+    image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=800&auto=format&fit=crop',
+    colors: ['#FFD700'],
+    description: 'Brincos banhados a ouro 18k com design minimalista e sofisticado.'
+  },
+  {
+    id: '9',
+    name: 'Pulseira Rígida Minimalista',
+    category: 'Acessórios',
+    price: 280,
+    image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=800&auto=format&fit=crop',
+    colors: ['#FFD700', '#C0C0C0'],
+    description: 'Pulseira elegante e discreta, ideal para composições modernas e executivas.'
+  },
+  {
+    id: '10',
+    name: 'Bolsa Tote Executive',
+    category: 'Acessórios',
+    price: 950,
+    image: 'https://images.unsplash.com/photo-1591561954557-26941169b49e?q=80&w=800&auto=format&fit=crop',
+    colors: ['#000000', '#D2B48C'],
+    description: 'Bolsa tote espaçosa e elegante, perfeita para carregar tudo o que você precisa com estilo.'
+  },
+  {
+    id: '11',
+    name: 'Brincos Argola Classic',
+    category: 'Acessórios',
+    price: 260,
+    image: 'https://images.unsplash.com/photo-1635767798638-3e25273a8236?q=80&w=800&auto=format&fit=crop',
+    colors: ['#FFD700', '#C0C0C0'],
+    description: 'Argolas clássicas com acabamento polido, um acessório indispensável para qualquer ocasião.'
+  },
+  {
+    id: '12',
+    name: 'Pulseira Elos Dourados',
+    category: 'Acessórios',
+    price: 340,
+    image: 'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?q=80&w=800&auto=format&fit=crop',
+    colors: ['#FFD700'],
+    description: 'Pulseira de elos robustos com brilho intenso, ideal para destacar o pulso com sofisticação.'
   }
 ];
